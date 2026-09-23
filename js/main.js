@@ -24,42 +24,63 @@
     });
   }
 
+  const FORMSPREE_URL = "https://formspree.io/f/mredlobr";
   const form = document.getElementById("quote-form");
   if (form) {
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit", async function (e) {
       e.preventDefault();
-      const data = new FormData(form);
-      const name = (data.get("name") || "").toString().trim();
-      const email = (data.get("email") || "").toString().trim();
-      const phone = (data.get("phone") || "").toString().trim();
-      const service = (data.get("service") || "").toString().trim();
-      const message = (data.get("message") || "").toString().trim();
-      const projectType = (data.get("projectType") || "").toString().trim();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
-      const subject = encodeURIComponent(
-        "Quote Request — Alvarado's Custom & Countertops" +
-          (service ? " (" + service + ")" : "")
-      );
-      const body = encodeURIComponent(
-        [
-          "Name: " + name,
-          "Email: " + email,
-          "Phone: " + phone,
-          "Service: " + service,
-          "Project type: " + projectType,
-          "",
-          "Message:",
-          message,
-        ].join("\n")
-      );
-
+      const btn = form.querySelector('button[type="submit"]');
       const success = document.getElementById("form-success");
-      if (success) success.classList.add("show");
+      const errorEl = document.getElementById("form-error");
+      const originalLabel = btn ? btn.textContent : "";
 
-      window.location.href =
-        "mailto:fabricio@alvaradoscc.com?subject=" + subject + "&body=" + body;
+      if (success) success.classList.remove("show");
+      if (errorEl) errorEl.classList.remove("show");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+      }
 
-      form.reset();
+      const data = new FormData(form);
+      const payload = {
+        name: (data.get("name") || "").toString().trim(),
+        email: (data.get("email") || "").toString().trim(),
+        phone: (data.get("phone") || "").toString().trim(),
+        service: (data.get("service") || "").toString().trim(),
+        projectType: (data.get("projectType") || "").toString().trim(),
+        message: (data.get("message") || "").toString().trim(),
+        _subject: "Quote Request — Alvarado's Custom & Countertops",
+      };
+
+      try {
+        const res = await fetch(FORMSPREE_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          form.reset();
+          if (success) success.classList.add("show");
+        } else {
+          throw new Error("Formspree error");
+        }
+      } catch (err) {
+        console.error(err);
+        if (errorEl) errorEl.classList.add("show");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = originalLabel || "Send Quote Request";
+        }
+      }
     });
   }
 })();

@@ -26,7 +26,7 @@
   <header class="site-header">
     <div class="nav-inner">
       <a class="logo" href="/">
-        <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#1a1814"/><path d="M12 44 L32 14 L52 44 Z" stroke="#c4a574" stroke-width="2.5" fill="none" stroke-linejoin="round"/><rect x="18" y="40" width="28" height="6" rx="1" fill="#c4a574" opacity="0.85"/></svg>
+        <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops" width="40" height="40">
         <div class="logo-text">
           <strong>Alvarado’s</strong>
           <span>Custom &amp; Countertops</span>
@@ -87,9 +87,12 @@
 
         <div class="contact-form">
           <div id="form-success" class="form-success" role="status">
-            Thanks — your email client should open with a draft to fabricio@alvaradoscc.com. If it doesn’t, email us directly or call 801-520-0602.
+            Thanks — your quote request was sent. We’ll follow up soon, usually same day. Prefer a call? 801-520-0602.
           </div>
-          <form id="quote-form" novalidate>
+          <div id="form-error" class="form-error" role="alert">
+            Something went wrong sending your request. Please try again, email fabricio@alvaradoscc.com, or call 801-520-0602.
+          </div>
+          <form id="quote-form" action="https://formspree.io/f/mredlobr" method="POST" novalidate>
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Name</label>
@@ -135,7 +138,7 @@
               <textarea id="message" name="message" required placeholder="Material preferences, timeline, city, and anything else we should know."></textarea>
             </div>
             <button class="btn btn-primary btn-lg" type="submit" style="width:100%">Send Quote Request</button>
-            <p class="form-note">Opens your email app with a draft to fabricio@alvaradoscc.com — no account required.</p>
+            <p class="form-note">We’ll reply by email or phone. Fields marked required help us quote accurately.</p>
           </form>
         </div>
       </div>
@@ -146,7 +149,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a class="logo" href="/">
-            <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#1a1814"/><path d="M12 44 L32 14 L52 44 Z" stroke="#c4a574" stroke-width="2.5" fill="none" stroke-linejoin="round"/><rect x="18" y="40" width="28" height="6" rx="1" fill="#c4a574" opacity="0.85"/></svg>
+            <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops" width="40" height="40">
             <div class="logo-text">
               <strong>Alvarado’s</strong>
               <span>Custom &amp; Countertops</span>

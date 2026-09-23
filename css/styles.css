@@ -110,6 +110,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
   height: 40px;
   flex-shrink: 0;
 }
+img.logo-mark {
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
 .logo-text {
   display: flex;
   flex-direction: column;
@@ -897,6 +902,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
   margin-bottom: 18px;
 }
 .form-success.show { display: block; }
+.form-error {
+  display: none;
+  padding: 20px;
+  border: 1px solid #c45c5c;
+  background: rgba(196, 92, 92, 0.1);
+  border-radius: var(--radius);
+  color: var(--stone-light);
+  margin-bottom: 18px;
+}
+.form-error.show { display: block; }
 
 @media (max-width: 800px) {
   .contact-grid { grid-template-columns: 1fr; }
