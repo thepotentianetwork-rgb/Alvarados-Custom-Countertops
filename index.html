@@ -26,18 +26,23 @@
   <header class="site-header">
     <div class="nav-inner">
       <a class="logo" href="/">
-        <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops" width="40" height="40">
-        <div class="logo-text">
+        <span class="logo-plate">
+          <picture>
+            <source srcset="/assets/logo.webp" type="image/webp">
+            <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops — Quality · Precision · Trust" width="64" height="64">
+          </picture>
+        </span>
+        <div class="logo-text" aria-hidden="true">
           <strong>Alvarado’s</strong>
           <span>Custom &amp; Countertops</span>
         </div>
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="/" class="active" aria-current="page">Home</a>
-        <a href="/services" >Services</a>
-        <a href="/projects" >Projects</a>
-        <a href="/about" >About</a>
-        <a href="/contact" >Contact</a>
+        <a href="/services">Services</a>
+        <a href="/projects">Projects</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
       </nav>
       <div class="nav-actions">
         <a class="nav-phone" href="tel:8015200602">801-520-0602</a>
@@ -47,16 +52,20 @@
     </div>
   </header>
   <main>
-    <section class="hero stone-bg">
-      <div class="vein" aria-hidden="true"></div>
-      <div class="container hero-grid">
-        <div>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
           <p class="eyebrow">Utah Countertops &amp; Cabinets</p>
           <h1>Built Right.<br><em>Built to Last.</em></h1>
           <p class="hero-lead">Family-owned fabrication and installation for quartz, granite, and custom stone — from single kitchens to multifamily production.</p>
+          <p class="hero-pillars" aria-label="Brand pillars">
+            <span>Quality</span>
+            <span>Precision</span>
+            <span>Trust</span>
+          </p>
           <div class="hero-cta">
             <a class="btn btn-primary btn-lg" href="/contact">Request a Quote</a>
-            <a class="btn btn-outline btn-lg" href="/services">View Services</a>
+            <a class="btn btn-outline-dark btn-lg" href="/projects">View Our Work</a>
           </div>
           <div class="hero-meta">
             <div><strong>3+</strong><span>Years Experience</span></div>
@@ -66,10 +75,14 @@
           </div>
         </div>
         <div class="hero-visual" aria-hidden="true">
-          <div class="hero-slab"></div>
-          <div class="hero-badge">
-            <p>“Quality you can feel in every edge.”</p>
-            <span>Quartz · Granite · Custom Stone</span>
+          <div class="hero-showroom">
+            <div class="slab slab-a"></div>
+            <div class="slab slab-b"></div>
+            <div class="slab slab-c"></div>
+          </div>
+          <div class="hero-showroom-caption">
+            <p>Showroom-ready stone composition</p>
+            <span>Quartz · Granite · Custom</span>
           </div>
         </div>
       </div>
@@ -77,126 +90,121 @@
 
     <section class="section">
       <div class="container">
-        <div class="section-header">
-          <p class="eyebrow">What We Do</p>
-          <h2>Precision craftsmanship for homes, builders, and commercial spaces</h2>
-          <p>From fabrication to final punch, we deliver clean installs, clear communication, and dependable completion across Utah.</p>
+        <div class="section-header wide">
+          <p class="eyebrow">What We Build</p>
+          <h2>Three paths. One standard of craft.</h2>
+          <p>Whether it’s a single kitchen, a multifamily schedule, or specialty stone details — we fabricate and install with the same care.</p>
         </div>
-        <div class="services-grid">
-          <article class="service-card">
-            <span class="service-num">01</span>
-            <h3>Countertop Fabrication &amp; Installation</h3>
-            <p>Quartz, granite, and other stone surfaces — measured, fabricated, and installed with careful attention to fit and finish.</p>
-            <a class="card-link" href="/contact">Request a Quote</a>
+        <div class="tracks">
+          <article class="track">
+            <span class="track-label">Track One</span>
+            <h3>Residential</h3>
+            <p>Kitchens, baths, and remodels — countertops, cabinets, and coordinated finish work for homeowners who want a clean install and lasting detail.</p>
+            <a class="card-link" href="/services#fabrication">Explore residential services</a>
           </article>
-          <article class="service-card">
-            <span class="service-num">02</span>
+          <article class="track">
+            <span class="track-label">Track Two</span>
             <h3>Commercial &amp; Multifamily</h3>
-            <p>High-volume apartment, multifamily, renovation, and commercial countertop programs with production capacity to match your schedule.</p>
-            <a class="card-link" href="/contact">Request a Quote</a>
+            <p>High-volume apartment and commercial programs with production capacity past 350 units — scheduling discipline builders and GCs can count on.</p>
+            <a class="card-link" href="/services#commercial">Explore commercial services</a>
           </article>
-          <article class="service-card">
-            <span class="service-num">03</span>
-            <h3>Cabinet Installation</h3>
-            <p>Kitchens, bathrooms, apartments, and renovations — cabinets set straight, level, and ready for stone.</p>
-            <a class="card-link" href="/contact">Request a Quote</a>
-          </article>
-          <article class="service-card">
-            <span class="service-num">04</span>
-            <h3>Kitchen &amp; Bathroom Remodeling</h3>
-            <p>Complete renovations including countertops, cabinets, and finish work — coordinated from start to closeout.</p>
-            <a class="card-link" href="/contact">Request a Quote</a>
-          </article>
-          <article class="service-card">
-            <span class="service-num">05</span>
-            <h3>Stone &amp; Quartz Specialty</h3>
-            <p>Mitered edges, waterfall panels, full-height backsplash, sink and cooktop cutouts, and custom stone details.</p>
-            <a class="card-link" href="/contact">Request a Quote</a>
-          </article>
-          <article class="service-card">
-            <span class="service-num">06</span>
-            <h3>Commercial Install &amp; Punch</h3>
-            <p>Installation, corrections, punch lists, and closeout support for contractors and property managers.</p>
-            <a class="card-link" href="/contact">Request a Quote</a>
+          <article class="track">
+            <span class="track-label">Track Three</span>
+            <h3>Specialty Stone</h3>
+            <p>Mitered edges, waterfall panels, full-height backsplash, and custom cutouts — the details that separate a standard top from a finished space.</p>
+            <a class="card-link" href="/services#specialty">Explore specialty work</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="diff-band">
+      <div class="vein" aria-hidden="true"></div>
       <div class="container">
-        <div class="features">
-          <div class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V7l8-4z"/></svg>
-            </div>
-            <h3>Insured &amp; Bonded</h3>
-            <p>General liability coverage and bonding for residential and commercial work.</p>
+        <div class="diff-intro">
+          <p class="eyebrow">Why Alvarado’s</p>
+          <h2>What sets the work apart</h2>
+          <p>Capacity for production, craft for specialty, and a bilingual crew that keeps communication clear on every job.</p>
+        </div>
+        <div class="diff-grid">
+          <div class="diff-item">
+            <strong>350+ unit capacity</strong>
+            <p>Multifamily programs delivered with production scheduling and consistent installs.</p>
           </div>
-          <div class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            </div>
-            <h3>On Call</h3>
-            <p>We’re available when you need us and answer as soon as we can.</p>
+          <div class="diff-item">
+            <strong>Bilingual EN / ES</strong>
+            <p>English and Spanish — clear communication with homeowners, crews, and GCs.</p>
           </div>
-          <div class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19V5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
-            </div>
-            <h3>Utah Licensed</h3>
+          <div class="diff-item">
+            <strong>Specialty stone</strong>
+            <p>Mitered edges, waterfalls, full-height backsplash, and custom cutouts.</p>
+          </div>
+          <div class="diff-item">
+            <strong>Utah licensed</strong>
             <p>License 13640210-5501. Serving projects across Utah.</p>
           </div>
-          <div class="feature">
-            <div class="feature-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-            </div>
-            <h3>Bilingual Crew</h3>
-            <p>English and Spanish — clear communication on every job.</p>
+          <div class="diff-item">
+            <strong>Insured &amp; bonded</strong>
+            <p>General liability coverage and bonding for residential and commercial work.</p>
+          </div>
+          <div class="diff-item">
+            <strong>On call</strong>
+            <p>Available when you need us — we answer as soon as we can.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section-cream">
       <div class="container">
-        <div class="section-header">
-          <p class="eyebrow">Selected Work</p>
-          <h2>Projects that show our production capacity and craft</h2>
-          <p>Text highlights from recent residential and commercial work. Project photography coming soon.</p>
+        <div class="section-head-row">
+          <div class="section-header">
+            <p class="eyebrow">View Our Work</p>
+            <h2>Selected projects</h2>
+            <p>Photo-ready frames for work we’ve completed — captions now, photography as it lands.</p>
+          </div>
+          <a class="btn btn-outline-dark" href="/projects">Full gallery</a>
         </div>
-        <div class="projects-grid">
-          <article class="project-card tall">
-            <div class="project-texture quartz" aria-hidden="true"></div>
-            <span class="project-tag">Multifamily · Utah</span>
-            <h3>350+ Unit Development</h3>
-            <p>Large-scale multifamily countertop program completed last year — production scheduling, consistent installs, and reliable closeout.</p>
+        <p class="gallery-note">Project photography is being added.</p>
+        <div class="gallery">
+          <article class="gallery-frame featured">
+            <div class="frame-stage">
+              <div class="frame-slab quartz" aria-hidden="true"></div>
+              <div class="frame-mat" aria-hidden="true"></div>
+            </div>
+            <div class="frame-caption">
+              <span class="project-tag">Multifamily · Utah</span>
+              <h3>350+ Unit Development</h3>
+              <p>Large-scale multifamily countertop program — production scheduling, consistent installs, and reliable closeout.</p>
+            </div>
           </article>
-          <article class="project-card">
-            <div class="project-texture granite" aria-hidden="true"></div>
-            <span class="project-tag">Commercial · Midvale</span>
-            <h3>Puerto Vallarta Mexican Grill</h3>
-            <p>Custom commercial countertops fabricated and installed end-to-end for a Midvale restaurant build.</p>
+          <article class="gallery-frame">
+            <div class="frame-stage">
+              <div class="frame-slab granite" aria-hidden="true"></div>
+              <div class="frame-mat" aria-hidden="true"></div>
+            </div>
+            <div class="frame-caption">
+              <span class="project-tag">Commercial · Midvale</span>
+              <h3>Puerto Vallarta Mexican Grill</h3>
+              <p>Custom commercial countertops fabricated and installed end-to-end for a Midvale restaurant build.</p>
+            </div>
           </article>
-        </div>
-        <div style="margin-top:32px">
-          <a class="btn btn-outline" href="/projects">View All Projects</a>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section">
       <div class="container">
         <div class="section-header centered">
           <p class="eyebrow">Client Voices</p>
           <h2>Trusted by homeowners across Utah</h2>
         </div>
-        <div class="testimonials">
-          <figure class="testimonial">
+        <div class="pullquotes">
+          <figure class="pullquote">
             <blockquote>“Excellent work done by Mr. Fabricio. We called him one day, and the next day the job was done as promised. High quality and excellent experience.”</blockquote>
             <cite>Alejandra Hironymous</cite>
           </figure>
-          <figure class="testimonial">
+          <figure class="pullquote">
             <blockquote>“Very well done job. Fabricio is professional, prompt to respond, and I love the way my house turned out.”</blockquote>
             <cite>Blanca Castillo</cite>
           </figure>
@@ -223,13 +231,15 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a class="logo" href="/">
-            <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops" width="40" height="40">
-            <div class="logo-text">
-              <strong>Alvarado’s</strong>
-              <span>Custom &amp; Countertops</span>
-            </div>
+            <span class="logo-plate">
+              <picture>
+                <source srcset="/assets/logo.webp" type="image/webp">
+                <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops" width="56" height="56">
+              </picture>
+            </span>
           </a>
           <p>Built Right. Built to Last. Premium countertops and cabinets serving Utah — residential, commercial, and multifamily.</p>
+          <p class="footer-tagline">Quality · Precision · Trust</p>
           <a class="btn btn-outline" href="/contact">Request a Quote</a>
         </div>
         <div class="footer-col">
@@ -244,10 +254,10 @@
         <div class="footer-col">
           <h4>Services</h4>
           <ul>
-            <li><a href="/services">Countertop Fabrication</a></li>
-            <li><a href="/services">Cabinet Installation</a></li>
-            <li><a href="/services">Kitchen &amp; Bath Remodels</a></li>
-            <li><a href="/services">Commercial &amp; Punch Work</a></li>
+            <li><a href="/services#fabrication">Countertop Fabrication</a></li>
+            <li><a href="/services#cabinets">Cabinet Installation</a></li>
+            <li><a href="/services#remodeling">Kitchen &amp; Bath Remodels</a></li>
+            <li><a href="/services#commercial">Commercial &amp; Punch Work</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -256,7 +266,7 @@
             <li><a href="tel:8015200602">801-520-0602</a></li>
             <li><a href="mailto:fabricio@alvaradoscc.com">fabricio@alvaradoscc.com</a></li>
             <li><a href="https://www.instagram.com/Alvarados_cc/" target="_blank" rel="noopener">Instagram @Alvarados_cc</a></li>
-            <li><span style="color:var(--text-muted)">Serving Utah</span></li>
+            <li><span style="color:var(--text-muted)">Serving Utah · On call</span></li>
           </ul>
         </div>
       </div>

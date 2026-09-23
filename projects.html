@@ -26,18 +26,23 @@
   <header class="site-header">
     <div class="nav-inner">
       <a class="logo" href="/">
-        <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops" width="40" height="40">
-        <div class="logo-text">
+        <span class="logo-plate">
+          <picture>
+            <source srcset="/assets/logo.webp" type="image/webp">
+            <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops — Quality · Precision · Trust" width="64" height="64">
+          </picture>
+        </span>
+        <div class="logo-text" aria-hidden="true">
           <strong>Alvarado’s</strong>
           <span>Custom &amp; Countertops</span>
         </div>
       </a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="/" >Home</a>
-        <a href="/services" >Services</a>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
         <a href="/projects" class="active" aria-current="page">Projects</a>
-        <a href="/about" >About</a>
-        <a href="/contact" >Contact</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
       </nav>
       <div class="nav-actions">
         <a class="nav-phone" href="tel:8015200602">801-520-0602</a>
@@ -50,26 +55,37 @@
     <section class="page-hero stone-bg">
       <div class="vein" aria-hidden="true"></div>
       <div class="container">
-        <p class="eyebrow">Projects</p>
-        <h1>Case studies in craft &amp; capacity</h1>
-        <p>Highlights from residential, commercial, and multifamily work across Utah. Full project photography will be added soon.</p>
+        <p class="eyebrow">View Our Work</p>
+        <h1>Selected projects</h1>
+        <p>Gallery frames for completed residential, commercial, and multifamily work across Utah.</p>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section-cream">
       <div class="container">
-        <div class="projects-grid">
-          <article class="project-card tall">
-            <div class="project-texture quartz" aria-hidden="true"></div>
-            <span class="project-tag">Multifamily Development</span>
-            <h3>Exceeding 350 Units</h3>
-            <p>Completed last year — a large multifamily program that demanded production capacity, consistent quality, and dependable scheduling from fabrication through install.</p>
+        <p class="gallery-note" style="margin-top:0">Project photography is being added.</p>
+        <div class="gallery">
+          <article class="gallery-frame featured">
+            <div class="frame-stage">
+              <div class="frame-slab quartz" aria-hidden="true"></div>
+              <div class="frame-mat" aria-hidden="true"></div>
+            </div>
+            <div class="frame-caption">
+              <span class="project-tag">Multifamily Development</span>
+              <h3>Exceeding 350 Units</h3>
+              <p>Completed last year — a large multifamily program that demanded production capacity, consistent quality, and dependable scheduling from fabrication through install.</p>
+            </div>
           </article>
-          <article class="project-card">
-            <div class="project-texture granite" aria-hidden="true"></div>
-            <span class="project-tag">Restaurant · Midvale, UT</span>
-            <h3>Puerto Vallarta Mexican Grill</h3>
-            <p>Custom commercial countertops fabricated and installed end-to-end for a busy Midvale restaurant — measured for the space, built for daily service.</p>
+          <article class="gallery-frame">
+            <div class="frame-stage">
+              <div class="frame-slab granite" aria-hidden="true"></div>
+              <div class="frame-mat" aria-hidden="true"></div>
+            </div>
+            <div class="frame-caption">
+              <span class="project-tag">Restaurant · Midvale, UT</span>
+              <h3>Puerto Vallarta Mexican Grill</h3>
+              <p>Custom commercial countertops fabricated and installed end-to-end for a busy Midvale restaurant — measured for the space, built for daily service.</p>
+            </div>
           </article>
         </div>
 
@@ -91,7 +107,7 @@
       <div class="container cta-band-inner">
         <div>
           <h2>Have a project like these?</h2>
-          <p>Share scope, timing, and location — we’ll get back to you the same day.</p>
+          <p>Share scope, timing, and location — we’re on call and answer when we can.</p>
         </div>
         <div class="cta-actions">
           <a class="btn btn-primary btn-lg" href="/contact">Request a Quote</a>
@@ -104,13 +120,15 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a class="logo" href="/">
-            <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops" width="40" height="40">
-            <div class="logo-text">
-              <strong>Alvarado’s</strong>
-              <span>Custom &amp; Countertops</span>
-            </div>
+            <span class="logo-plate">
+              <picture>
+                <source srcset="/assets/logo.webp" type="image/webp">
+                <img class="logo-mark" src="/assets/logo.jpg" alt="Alvarado’s Custom &amp; Countertops" width="56" height="56">
+              </picture>
+            </span>
           </a>
           <p>Built Right. Built to Last. Premium countertops and cabinets serving Utah — residential, commercial, and multifamily.</p>
+          <p class="footer-tagline">Quality · Precision · Trust</p>
           <a class="btn btn-outline" href="/contact">Request a Quote</a>
         </div>
         <div class="footer-col">
@@ -125,10 +143,10 @@
         <div class="footer-col">
           <h4>Services</h4>
           <ul>
-            <li><a href="/services">Countertop Fabrication</a></li>
-            <li><a href="/services">Cabinet Installation</a></li>
-            <li><a href="/services">Kitchen &amp; Bath Remodels</a></li>
-            <li><a href="/services">Commercial &amp; Punch Work</a></li>
+            <li><a href="/services#fabrication">Countertop Fabrication</a></li>
+            <li><a href="/services#cabinets">Cabinet Installation</a></li>
+            <li><a href="/services#remodeling">Kitchen &amp; Bath Remodels</a></li>
+            <li><a href="/services#commercial">Commercial &amp; Punch Work</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -137,7 +155,7 @@
             <li><a href="tel:8015200602">801-520-0602</a></li>
             <li><a href="mailto:fabricio@alvaradoscc.com">fabricio@alvaradoscc.com</a></li>
             <li><a href="https://www.instagram.com/Alvarados_cc/" target="_blank" rel="noopener">Instagram @Alvarados_cc</a></li>
-            <li><span style="color:var(--text-muted)">Serving Utah</span></li>
+            <li><span style="color:var(--text-muted)">Serving Utah · On call</span></li>
           </ul>
         </div>
       </div>
