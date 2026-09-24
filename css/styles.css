@@ -1591,3 +1591,16 @@ a.frame-stage {
 .section-cream .gallery-frame.featured .frame-stage.has-photo {
   min-height: 360px;
 }
+
+.gallery-pair {
+  grid-template-columns: 1fr 1fr;
+}
+.frame-stage.portrait {
+  aspect-ratio: 4 / 5;
+}
+.gallery-frame .frame-stage.portrait {
+  min-height: 0;
+}
+@media (max-width: 800px) {
+  .gallery-pair { grid-template-columns: 1fr; }
+}
