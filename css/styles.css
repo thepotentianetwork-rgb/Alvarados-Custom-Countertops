@@ -1843,3 +1843,32 @@ a.frame-stage {
   .mosaic-wj { grid-template-columns: 1fr; }
   .mosaic-wj .wj-wide { aspect-ratio: 3 / 2; }
 }
+
+/* Equal-height rows sized by each photo's aspect (--ar) */
+.photo-mosaic.mrows {
+  display: flex;
+  flex-direction: column;
+  grid-template-rows: none;
+  min-height: 0;
+  gap: 8px;
+}
+.mrow { display: flex; gap: 8px; }
+.mrow figure { flex: var(--ar, 1) 1 0; aspect-ratio: var(--ar, 1); min-height: 0; }
+
+/* Commons: lead over perimeter, tall island at right */
+.photo-mosaic.mosaic-commons {
+  grid-template-columns: 1fr 1.18fr;
+  grid-template-rows: auto auto;
+  min-height: 0;
+}
+.mosaic-commons .cm-lead { grid-column: 1; grid-row: 1; aspect-ratio: 1800 / 1484; min-height: 0; }
+.mosaic-commons .cm-perim { grid-column: 1; grid-row: 2; aspect-ratio: 4 / 3; min-height: 0; }
+.mosaic-commons .cm-tall { grid-column: 2; grid-row: 1 / 3; }
+.mosaic-commons .cm-tall img { position: absolute; inset: 0; }
+@media (max-width: 800px) {
+  .mrow { flex-direction: column; }
+  .mrow figure { flex: none; width: 100%; }
+  .photo-mosaic.mosaic-commons { grid-template-columns: 1fr; grid-template-rows: none; }
+  .mosaic-commons .cm-lead, .mosaic-commons .cm-perim, .mosaic-commons .cm-tall { grid-column: auto; grid-row: auto; }
+  .mosaic-commons .cm-tall { aspect-ratio: 3 / 4; }
+}
