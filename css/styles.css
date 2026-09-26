@@ -1827,3 +1827,19 @@ a.frame-stage {
   .project-split { grid-template-columns: 1fr; }
   .project-split .project-feature-head { padding: 24px 20px 18px; }
 }
+
+/* West Jordan: wide lead, 3 details, wide room */
+.mosaic-wj {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: none;
+  grid-auto-rows: auto;
+  min-height: 0;
+  gap: 8px;
+}
+.mosaic-wj figure { aspect-ratio: 4 / 3; min-height: 0; }
+.mosaic-wj .wj-wide { grid-column: 1 / -1; aspect-ratio: 2 / 1; }
+@media (max-width: 800px) {
+  .mosaic-wj { grid-template-columns: 1fr; }
+  .mosaic-wj .wj-wide { aspect-ratio: 3 / 2; }
+}
