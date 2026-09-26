@@ -1797,3 +1797,33 @@ a.frame-stage {
   border-radius: 50%;
   background: var(--accent);
 }
+
+/* Single-photo split layout */
+.project-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.project-split .project-feature-head { padding: 40px; }
+.split-photo { padding: 8px; }
+.split-photo figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  aspect-ratio: 1536 / 1824;
+  background: var(--cream-deep);
+}
+.split-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s ease; }
+.split-photo figure:hover img { transform: scale(1.03); }
+.split-photo figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 28px 14px 12px;
+  background: linear-gradient(transparent, rgba(12,11,9,0.72));
+  color: var(--cream);
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+}
+@media (max-width: 800px) {
+  .project-split { grid-template-columns: 1fr; }
+  .project-split .project-feature-head { padding: 24px 20px 18px; }
+}
