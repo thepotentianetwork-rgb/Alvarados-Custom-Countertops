@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alvaradoscc.com/sitemap.xml
+Sitemap: https://www.alvaradoscc.com/sitemap.xml
