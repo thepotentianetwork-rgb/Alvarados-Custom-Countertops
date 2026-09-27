@@ -98,7 +98,8 @@
           if (en.isIntersecting) {
             if (v.controls) return;
             const p = v.play();
-            if (p && p.catch) p.catch(() => showControls(v));
+            // A quick scroll-past pauses before play() resolves (AbortError); only fall back to controls when playback is truly blocked.
+            if (p && p.catch) p.catch((err) => { if (!err || err.name !== "AbortError") showControls(v); });
           } else if (!v.paused && !v.controls) {
             v.pause();
           }
