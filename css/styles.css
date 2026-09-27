@@ -2712,3 +2712,32 @@ a:hover > .hm-arrow, a:focus-visible > .hm-arrow { transform: translateX(4px); }
 .hm-hero2 .hm-paths { max-width: 660px; }
 @media (min-width: 701px) { .hm-hero2 .hm-path-label { white-space: nowrap; font-size: 1.3rem; } }
 @media (min-width: 701px) and (max-width: 760px) { .hm-hero2 .hm-path-label { white-space: normal; } }
+
+/* ========== HOME HERO v4: slow crossfade slideshow ========== */
+.hm-hero2-bg { overflow: hidden; background: var(--ink); }
+.hm-hero2-bg::after { z-index: 3; }
+.hm-slide { position: absolute; inset: 0; opacity: 0; z-index: 0; transition: opacity 1.6s cubic-bezier(.45, 0, .25, 1); }
+.hm-slide.is-prev { opacity: 1; z-index: 1; transition: none; }
+.hm-slide.is-active { opacity: 1; z-index: 2; }
+.hm-slide img { transform-origin: 62% 50%; backface-visibility: hidden; }
+.hm-slide.is-zoom img { animation: hm-zoom 10s linear forwards; will-change: transform; }
+@keyframes hm-zoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+@media (max-width: 700px) { .hm-slide img { transform-origin: 50% 30%; } }
+@media (prefers-reduced-motion: reduce) {
+  .hm-slide { transition: none; }
+  .hm-slide.is-zoom img { animation: none; }
+}
+
+/* ========== Scroll reveal (JS adds data-reveal only to below-the-fold blocks) ========== */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity .7s cubic-bezier(.25, .6, .3, 1), transform .8s cubic-bezier(.2, .7, .2, 1);
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+@media print {
+  .js [data-reveal] { opacity: 1 !important; transform: none !important; }
+}

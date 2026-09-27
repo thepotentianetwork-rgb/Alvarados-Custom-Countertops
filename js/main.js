@@ -185,4 +185,146 @@
       });
     });
   }
+  const reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const afterLoad = (fn) => {
+    const idle = () => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 2000 }) : setTimeout(fn, 400));
+    if (document.readyState === "complete") idle();
+    else window.addEventListener("load", idle, { once: true });
+  };
+
+  // Home hero: slow crossfade slideshow. Slide 1 is in the HTML; the rest load after the page
+  // has finished loading and only join the rotation once fully decoded (no flash, no half-painted image).
+  const heroBg = document.querySelector("[data-hero-slides]");
+  const saveDataHero = !!(navigator.connection && navigator.connection.saveData);
+  if (heroBg && !reduceMotion && !saveDataHero) {
+    const HOLD = 6500, FADE = 1600;
+    const slides = Array.from(heroBg.querySelectorAll(".hm-slide"));
+    const ready = slides.map((el, i) => i === 0);
+    let cur = 0, timer = 0, visible = true, started = false;
+    const build = (el) => {
+      const base = el.dataset.slide;
+      const pic = document.createElement("picture");
+      pic.innerHTML =
+        '<source media="(max-width: 700px)" srcset="' + base + '-m.webp" type="image/webp">' +
+        '<source media="(max-width: 700px)" srcset="' + base + '-m.jpg">' +
+        '<source srcset="' + base + "-1280.webp 1280w, " + base + '-1920.webp 1920w" sizes="100vw" type="image/webp">' +
+        '<img src="' + base + '-1920.jpg" srcset="' + base + "-1280.jpg 1280w, " + base + '-1920.jpg 1920w" sizes="100vw" alt="" width="1920" height="1200" decoding="async">';
+      el.appendChild(pic);
+      const img = pic.querySelector("img");
+      const done = () => img.decode ? img.decode() : Promise.resolve();
+      return (img.complete ? done() : new Promise((res, rej) => { img.onload = res; img.onerror = rej; }).then(done));
+    };
+    const go = () => {
+      clearTimeout(timer);
+      if (!visible || document.hidden) return;
+      timer = setTimeout(() => {
+        let next = cur;
+        for (let k = 1; k < slides.length; k++) {
+          const j = (cur + k) % slides.length;
+          if (ready[j]) { next = j; break; }
+        }
+        if (next !== cur) {
+          const prev = slides[cur], nxt = slides[next];
+          nxt.classList.remove("is-zoom");
+          void nxt.offsetWidth; // restart the slow zoom from scale(1) while the slide is still transparent
+          prev.classList.remove("is-active");
+          prev.classList.add("is-prev");
+          nxt.classList.add("is-active", "is-zoom");
+          setTimeout(() => { prev.classList.remove("is-prev"); }, FADE + 150);
+          setTimeout(() => { if (!prev.classList.contains("is-active")) prev.classList.remove("is-zoom"); }, FADE * 2 + 300);
+          cur = next;
+        }
+        go();
+      }, HOLD);
+    };
+    afterLoad(() => {
+      slides.forEach((el, i) => {
+        if (i === 0 || !el.dataset.slide) return;
+        build(el).then(() => {
+          ready[i] = true;
+          if (!started) { started = true; go(); }
+        }).catch(() => {});
+      });
+    });
+    document.addEventListener("visibilitychange", () => { if (started) go(); });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((en) => {
+        visible = en[0].isIntersecting;
+        if (started) go();
+      }).observe(heroBg);
+    }
+  }
+
+  // Scroll reveal: below-the-fold sections and cards ease up into place as they enter the viewport.
+  // Content is only hidden once JS has tagged it; anything already on screen at load is left alone.
+  if (!reduceMotion && "IntersectionObserver" in window && document.documentElement.classList.contains("js")) {
+    const SKIP = "dialog, video, form *, .hm-hero2, .page-hero, [data-no-reveal]";
+    const targets = [];
+    const okTarget = (el) => {
+      if (el.matches(SKIP) || el.matches("script, style, template, br, hr")) return false;
+      const cs = getComputedStyle(el);
+      if (cs.display === "none" || cs.position === "absolute" || cs.position === "fixed" || cs.position === "sticky") return false;
+      if (cs.transform !== "none" || parseFloat(cs.opacity) < 1) return false;
+      return el.getBoundingClientRect().height > 0;
+    };
+    // A "group" is a grid/list of like items (tiles, cards, columns): its items reveal one by one.
+    const isGroup = (el) => {
+      const kids = Array.from(el.children);
+      if (kids.length < 2 || el.matches("form, figure, picture, a, button, header, p, h1, h2, h3, h4")) return false;
+      const d = getComputedStyle(el).display;
+      const list = el.matches("ul, ol");
+      if (!list && d.indexOf("grid") === -1 && d.indexOf("flex") === -1) return false;
+      if ((list || d.indexOf("flex") !== -1) && kids.length < 3) return false;
+      const sig = (k) => k.tagName + "." + (k.classList[0] || "");
+      const counts = {};
+      kids.forEach((k) => { counts[sig(k)] = (counts[sig(k)] || 0) + 1; });
+      return Math.max.apply(null, Object.values(counts)) / kids.length >= 0.6;
+    };
+    const collect = (parent, depth) => {
+      Array.from(parent.children).forEach((c) => {
+        if (!okTarget(c)) return;
+        if (depth < 2 && isGroup(c)) collect(c, depth + 1);
+        else targets.push(c);
+      });
+    };
+    document.querySelectorAll("main section, main > .section, .site-footer").forEach((sec) => {
+      if (sec.matches(SKIP)) return;
+      const box = sec.querySelector(":scope > .container") || sec;
+      collect(box, 0);
+    });
+    const fold = window.innerHeight * 0.94;
+    const tagged = targets.filter((el, i, a) => a.indexOf(el) === i && !a.some((o) => o !== el && o.contains(el)) && el.getBoundingClientRect().top > fold);
+    const finish = (el) => {
+      el.removeAttribute("data-reveal");
+      el.classList.remove("is-in");
+      el.style.transitionDelay = "";
+    };
+    const io = new IntersectionObserver((entries) => {
+      const batch = entries.filter((e) => e.isIntersecting).map((e) => e.target);
+      batch.sort((a, b) => {
+        const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+        return (Math.round(ra.top / 40) - Math.round(rb.top / 40)) || (ra.left - rb.left);
+      });
+      batch.forEach((el, i) => {
+        io.unobserve(el);
+        el.style.transitionDelay = Math.min(i, 5) * 90 + "ms";
+        el.classList.add("is-in");
+        const end = () => finish(el);
+        el.addEventListener("transitionend", (e) => { if (e.target === el && e.propertyName === "transform") end(); });
+        setTimeout(end, 1000 + Math.min(i, 5) * 90 + 200);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0 });
+    tagged.forEach((el) => { el.setAttribute("data-reveal", ""); io.observe(el); });
+    // The last blocks on a page can sit inside the bottom margin forever; reveal them once the page bottoms out.
+    const atBottom = () => {
+      if (window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 4) return;
+      document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => {
+        io.unobserve(el);
+        el.classList.add("is-in");
+        setTimeout(() => finish(el), 1100);
+      });
+      window.removeEventListener("scroll", atBottom);
+    };
+    if (tagged.length) window.addEventListener("scroll", atBottom, { passive: true });
+  }
 })();
