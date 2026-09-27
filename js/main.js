@@ -83,4 +83,28 @@
       }
     });
   }
+
+  // Inline project videos: load + play only when in view, pause when out.
+  const vids = document.querySelectorAll("video.inline-video");
+  if (vids.length) {
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const showControls = (v) => { v.controls = true; v.preload = "metadata"; };
+    if (reduce || !("IntersectionObserver" in window)) {
+      vids.forEach(showControls);
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          const v = en.target;
+          if (en.isIntersecting) {
+            if (v.controls) return;
+            const p = v.play();
+            if (p && p.catch) p.catch(() => showControls(v));
+          } else if (!v.paused && !v.controls) {
+            v.pause();
+          }
+        });
+      }, { threshold: 0.25 });
+      vids.forEach((v) => io.observe(v));
+    }
+  }
 })();
