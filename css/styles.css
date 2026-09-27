@@ -2741,3 +2741,27 @@ a:hover > .hm-arrow, a:focus-visible > .hm-arrow { transform: translateX(4px); }
 @media print {
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
+
+/* ========== HEADER v2: transparent logo lockup, no text, mobile tap-to-call ========== */
+.site-header .logo { gap: 0; line-height: 0; }
+.site-header .logo picture { display: block; }
+.site-header .logo-mark { height: 72px; width: auto; aspect-ratio: 137 / 72; border-radius: 0; }
+.nav-call {
+  display: none;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--ink);
+  transition: background 0.2s, border-color 0.2s;
+}
+.nav-call:hover, .nav-call:focus-visible { background: var(--accent-light); border-color: var(--accent-light); }
+.nav-call svg { display: block; }
+@media (max-width: 900px) {
+  .nav-call { display: inline-flex; }
+  .nav-actions { gap: 10px; }
+}
+@media (max-width: 480px) {
+  .site-header .logo-mark { height: 62px; }
+}
