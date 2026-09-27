@@ -2765,3 +2765,49 @@ a:hover > .hm-arrow, a:focus-visible > .hm-arrow { transform: translateX(4px); }
 @media (max-width: 480px) {
   .site-header .logo-mark { height: 62px; }
 }
+
+/* ========== Floating WhatsApp button ========== */
+.wa-float {
+  position: fixed;
+  right: calc(18px + env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 90; /* below the fixed header (100) and its mobile menu */
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(12, 11, 9, 0.22), 0 2px 5px rgba(12, 11, 9, 0.14);
+  transition: opacity .3s ease, visibility .3s, transform .3s ease, box-shadow .2s ease;
+  animation: wa-in .5s ease-out .8s backwards;
+  -webkit-tap-highlight-color: transparent;
+}
+.wa-float svg { display: block; }
+.wa-float:hover { box-shadow: 0 8px 24px rgba(12, 11, 9, 0.28), 0 2px 6px rgba(12, 11, 9, 0.16); }
+.wa-float:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.wa-label {
+  position: absolute; right: calc(100% + 10px); top: 50%;
+  transform: translate(6px, -50%);
+  padding: 7px 12px; border-radius: 999px;
+  background: var(--ink); color: var(--cream);
+  font-size: 0.72rem; letter-spacing: 0.08em; font-weight: 500; white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+@media (hover: hover) and (min-width: 901px) {
+  .wa-float:hover .wa-label, .wa-float:focus-visible .wa-label { opacity: 1; transform: translate(0, -50%); }
+}
+@media (max-width: 600px) {
+  .wa-float { width: 52px; height: 52px; right: calc(14px + env(safe-area-inset-right, 0px)); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .wa-float svg { width: 28px; height: 28px; }
+}
+/* stay out of the way: mobile menu, photo lightbox, quote form submit, on-screen keyboard */
+.nav-open .wa-float, .pj-lb-open .wa-float, .wa-float.wa-hide {
+  opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(10px);
+}
+@keyframes wa-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .wa-float { animation: none; transition: none; }
+  .wa-label { transition: none; }
+}
+@media print { .wa-float { display: none; } }

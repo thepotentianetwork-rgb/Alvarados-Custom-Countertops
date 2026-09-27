@@ -15,11 +15,13 @@
     toggle.addEventListener("click", () => {
       const open = navLinks.classList.toggle("open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      document.documentElement.classList.toggle("nav-open", open);
     });
     navLinks.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", () => {
         navLinks.classList.remove("open");
         toggle.setAttribute("aria-expanded", "false");
+        document.documentElement.classList.remove("nav-open");
       });
     });
   }
@@ -326,5 +328,39 @@
       window.removeEventListener("scroll", atBottom);
     };
     if (tagged.length) window.addEventListener("scroll", atBottom, { passive: true });
+  }
+  // Floating WhatsApp button: step aside while the quote form's submit button is on screen
+  // or while someone is typing in the form (mobile keyboard), so it never covers either.
+  const wa = document.querySelector(".wa-float");
+  if (wa) {
+    let overSubmit = false, typing = false;
+    const sync = () => wa.classList.toggle("wa-hide", overSubmit || typing);
+    const submits = Array.from(document.querySelectorAll('#quote-form [type="submit"]'));
+    if (submits.length && "IntersectionObserver" in window) {
+      const seen = new Set();
+      let raf = 0;
+      const check = () => {
+        raf = 0;
+        const w = wa.getBoundingClientRect();
+        overSubmit = Array.from(seen).some((btn) => {
+          const r = btn.getBoundingClientRect();
+          return !(w.right + 12 < r.left || w.left - 12 > r.right || w.bottom + 12 < r.top || w.top - 12 > r.bottom);
+        });
+        sync();
+      };
+      const onScroll = () => { if (!raf) raf = requestAnimationFrame(check); };
+      const sio = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) seen.add(en.target); else seen.delete(en.target); });
+        if (seen.size) { window.addEventListener("scroll", onScroll, { passive: true }); window.addEventListener("resize", onScroll); }
+        else { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); }
+        check();
+      });
+      submits.forEach((btn) => sio.observe(btn));
+    }
+    const coarse = window.matchMedia && window.matchMedia("(max-width: 900px)");
+    document.addEventListener("focusin", (e) => {
+      if (coarse && coarse.matches && e.target.matches && e.target.matches("#quote-form input, #quote-form select, #quote-form textarea")) { typing = true; sync(); }
+    });
+    document.addEventListener("focusout", () => { typing = false; setTimeout(sync, 150); });
   }
 })();
