@@ -335,7 +335,7 @@
   if (wa) {
     let overSubmit = false, typing = false;
     const sync = () => wa.classList.toggle("wa-hide", overSubmit || typing);
-    const submits = Array.from(document.querySelectorAll('#quote-form [type="submit"]'));
+    const submits = Array.from(document.querySelectorAll('#quote-form [type="submit"], .hm-hero2 .hm-path'));
     if (submits.length && "IntersectionObserver" in window) {
       const seen = new Set();
       let raf = 0;
@@ -363,4 +363,46 @@
     });
     document.addEventListener("focusout", () => { typing = false; setTimeout(sync, 150); });
   }
+  // Google reviews carousel: prev/next buttons and "Read more" for long reviews.
+  document.querySelectorAll(".rv-carousel").forEach((car) => {
+    const track = car.querySelector(".rv-track");
+    const prev = car.querySelector(".rv-prev");
+    const next = car.querySelector(".rv-next");
+    if (!track) return;
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth - 2;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max;
+      if (prev && next && max <= 0) car.classList.add("rv-static");
+    };
+    const step = () => {
+      const card = track.querySelector(".rv-card");
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+      const per = card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+      return Math.max(per, Math.floor(track.clientWidth / per) * per);
+    };
+    if (prev) prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: reduceMotion ? "auto" : "smooth" }));
+    if (next) next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: reduceMotion ? "auto" : "smooth" }));
+    track.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+    window.addEventListener("resize", update);
+    const clampCheck = () => {
+      car.querySelectorAll(".rv-card").forEach((c) => {
+        const p = c.querySelector(".rv-text p");
+        const btn = c.querySelector(".rv-more");
+        if (!p || !btn || c.classList.contains("is-open")) return;
+        btn.hidden = p.scrollHeight <= p.clientHeight + 2;
+      });
+    };
+    car.querySelectorAll(".rv-more").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const c = btn.closest(".rv-card");
+        const open = c.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        btn.textContent = open ? "Show less" : "Read more";
+      });
+    });
+    update(); clampCheck();
+    window.addEventListener("resize", clampCheck);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { update(); clampCheck(); });
+  });
 })();
