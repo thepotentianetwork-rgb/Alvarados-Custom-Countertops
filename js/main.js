@@ -54,6 +54,7 @@
         service: (data.get("service") || "").toString().trim(),
         projectType: (data.get("projectType") || "").toString().trim(),
         message: (data.get("message") || "").toString().trim(),
+        audience: (data.get("audience") || "").toString().trim(),
         _subject: "Quote Request — Alvarado's Custom & Countertops",
       };
 
@@ -84,12 +85,21 @@
     });
   }
 
+  // Audience CTAs ("Get a bid" / "Start your custom project") pre-select who's asking in the quote form.
+  document.querySelectorAll("a[data-audience]").forEach((a) => {
+    a.addEventListener("click", () => {
+      const radio = document.querySelector('input[name="audience"][value="' + a.dataset.audience + '"]');
+      if (radio) radio.checked = true;
+    });
+  });
+
   // Inline project videos: load + play only when in view, pause when out.
   const vids = document.querySelectorAll("video.inline-video");
   if (vids.length) {
     const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const saveData = !!(navigator.connection && navigator.connection.saveData);
     const showControls = (v) => { v.controls = true; v.preload = "metadata"; };
-    if (reduce || !("IntersectionObserver" in window)) {
+    if (reduce || saveData || !("IntersectionObserver" in window)) {
       vids.forEach(showControls);
     } else {
       const io = new IntersectionObserver((entries) => {
@@ -105,7 +115,10 @@
           }
         });
       }, { threshold: 0.25 });
-      vids.forEach((v) => io.observe(v));
+      // Start after the page has loaded so posters, images, and CSS come first.
+      const startVideos = () => vids.forEach((v) => io.observe(v));
+      if (document.readyState === "complete") startVideos();
+      else window.addEventListener("load", startVideos, { once: true });
     }
   }
 
